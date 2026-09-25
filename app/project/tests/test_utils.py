@@ -8,7 +8,7 @@ def test_is_nuber_positive():
 
 def test_is_nuber_positive_1():
     number = -5
-    expected = True
+    expected = False
     actual = is_nuber_positive(number)
     assert expected is actual
 

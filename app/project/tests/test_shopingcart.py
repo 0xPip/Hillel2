@@ -7,65 +7,50 @@ class TestShoppingCart:
         expected = []
         assert cart.items == expected
 
-    def test_add_item_new_item(self):
+    def test_add_item_new_item(self, default_product):
         cart = ShoppingCart()
-        cart.add_item("apple", 10, 2)
-        expected = [{"name": "apple", "price": 10, "quantity": 2}]
+        cart.add_item(default_product["name"], default_product["price"], default_product["quantity"])
+        expected = [default_product]
         assert cart.items == expected
 
-    def test_add_item_several_new_items(self):
+    def test_add_item_several_new_items(self, default_product):
         cart = ShoppingCart()
-        cart.add_item("apple", 10, 2)
+        cart.add_item(default_product["name"], default_product["price"], default_product["quantity"])
         cart.add_item("banana", 5, 3)
-        expected = [
-            {"name": "apple", "price": 10, "quantity": 2},
-            {"name": "banana", "price": 5, "quantity": 3},
-        ]
+        expected = [default_product, {"name": "banana", "price": 5, "quantity": 3}]
         assert cart.items == expected
 
-    def test_add_item_existing_item_sums_quantity(self):
-        cart = ShoppingCart()
-        cart.add_item("apple", 10, 2)
-        cart.add_item("apple", 12, 3)
+    def test_add_item_existing_item_sums_quantity(self, cart_with_default_product):
+        cart_with_default_product.add_item("apple", 12, 3)
         expected = [{"name": "apple", "price": 12, "quantity": 5}]
-        assert cart.items == expected
+        assert cart_with_default_product.items == expected
 
-    def test_add_item_existing_item_overwrites_price(self):
-        cart = ShoppingCart()
-        cart.add_item("apple", 10, 2)
-        cart.add_item("apple", 15, 1)
+    def test_add_item_existing_item_overwrites_price(self, cart_with_default_product):
+        cart_with_default_product.add_item("apple", 15, 1)
         expected_price = 15
-        assert cart.items[0]["price"] == expected_price
+        assert cart_with_default_product.items[0]["price"] == expected_price
 
-    def test_remove_item_existing_item(self):
-        cart = ShoppingCart()
-        cart.add_item("apple", 10, 2)
-        cart.add_item("banana", 5, 3)
-        cart.remove_item("apple")
+    def test_remove_item_existing_item(self, cart_with_default_product):
+        cart_with_default_product.add_item("banana", 5, 3)
+        cart_with_default_product.remove_item("apple")
         expected = [{"name": "banana", "price": 5, "quantity": 3}]
-        assert cart.items == expected
+        assert cart_with_default_product.items == expected
 
-    def test_remove_item_nonexistent_item_does_nothing(self):
-        cart = ShoppingCart()
-        cart.add_item("apple", 10, 2)
-        cart.remove_item("banana")
-        expected = [{"name": "apple", "price": 10, "quantity": 2}]
-        assert cart.items == expected
+    def test_remove_item_nonexistent_item_does_nothing(self, cart_with_default_product, default_product):
+        cart_with_default_product.remove_item("banana")
+        expected = [default_product]
+        assert cart_with_default_product.items == expected
 
     def test_get_total_empty_cart(self):
         cart = ShoppingCart()
         expected = 0
         assert cart.get_total() == expected
 
-    def test_get_total_single_item(self):
-        cart = ShoppingCart()
-        cart.add_item("apple", 10, 2)
+    def test_get_total_single_item(self, cart_with_default_product):
         expected = 20
-        assert cart.get_total() == expected
+        assert cart_with_default_product.get_total() == expected
 
-    def test_get_total_multiple_items(self):
-        cart = ShoppingCart()
-        cart.add_item("apple", 10, 2)
-        cart.add_item("banana", 5, 3)
+    def test_get_total_multiple_items(self, cart_with_default_product):
+        cart_with_default_product.add_item("banana", 5, 3)
         expected = 35
-        assert cart.get_total() == expected
+        assert cart_with_default_product.get_total() == expected

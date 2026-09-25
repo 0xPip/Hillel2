@@ -8,5 +8,16 @@ authors = [
 ]
 requires-python = ">=3.14"
 dependencies = [
+    "bcrypt==4.0.1",
+    "passlib[bcrypt]==1.7.4",
+    "pyjwt>=2.14.0",
     "pytest>=9.1.1",
+    "python-dotenv>=1.2.3",
+    "redis>=8.1.0",
+]
+
+[tool.uv.workspace]
+members = [
+    "hash_demo",
+    "hash_demo/hash_demo",
 ]
