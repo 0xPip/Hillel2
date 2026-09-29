@@ -1,6 +1,6 @@
 import pytest
 
-from password_checker import is_password_strong
+from passwordchecker import is_password_strong
 
 
 @pytest.mark.parametrize("password, expected", [
