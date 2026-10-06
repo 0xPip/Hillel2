@@ -12,7 +12,7 @@ s3 = boto3.client(
     region_name=os.getenv("AWS_REGION_NAME"),
 )
 
-filename = "project/Artem_Polishchuk.html"
+filename = "Artem_Polishchuk.html"
 
 s3.upload_file(
     filename,
