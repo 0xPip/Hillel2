@@ -1,11 +1,11 @@
 import jwt
 import datetime
 
-secret = "my_secret_key"
+secret = "my_super_secret_key_for_jwt_12345"
 
 payload = {
     "surname": "Polishchuk",
-    "group": "ПС-25.08.2026",
+    "group": "25.08.26",
     "subject": "Python",
     "exp": datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(minutes=30),
 }
