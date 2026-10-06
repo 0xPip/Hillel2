@@ -1,6 +1,15 @@
-import redis
+import os
 
-r = redis.Redis(host="localhost", port=6379, decode_responses=True)
+import redis
+from dotenv import load_dotenv
+
+load_dotenv()
+
+host = os.getenv("REDIS_HOST")
+port = int(os.getenv("REDIS_PORT"))
+password = os.getenv("REDIS_PASSWORD")
+
+r = redis.Redis(host=host, port=port, password=password, decode_responses=True)
 
 r.publish("python_channel", "Hello Redis! Message #0")
 r.publish("python_channel", "Hello Redis! Message #1")
